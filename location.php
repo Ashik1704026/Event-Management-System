@@ -58,7 +58,7 @@
                                     <a href="" class="dropdown-item">Party</a>
                                     <a href="" class="dropdown-item">Reception</a>
                                 </div>
-                            </li>
+                            </li>     
                             <li class="nav-item"><a href="" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
