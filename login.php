@@ -14,8 +14,7 @@
                 }
                 if($pass == $dbpassword){
                     $_SESSION['username'] = $user;
-                    // echo "loggedin....";
-                    // header("Location: home.html");
+                    header("Location: location.php");
                     die;
                 }
                 else{

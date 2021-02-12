@@ -62,8 +62,13 @@
                             <li class="nav-item"><a href="" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Login</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Signup</a></li>
+                            <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
+                            <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
+                            <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
+                            <?php }else{ ?>
+                            <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
+                            <li class="nav-item show1"><a href="" class="nav-link">Signup</a></li>
+                            <?php } ?>                    
                         </ul>
                     </div>
                 </div>
@@ -84,7 +89,6 @@
                         </p>
                     </div>
                 </div>
-                <a href="logout.php">logout</a>
                 <form action="login.php" method="POST">
                     <div class="row show1">
                         <div class="input-group input-group-lg col-lg-4 col-md-6 resp-input">
