@@ -1,6 +1,7 @@
 <?php
+    session_start();
     if(isset($_POST["submit"])){
-        // if(!empty($_POST['user']) && !empty($_POST['pass'])){
+        if(!empty($_SESSION['username'])){
             $Event=$_POST['gridRadios'];
             $Location=$_POST['location'];
             $Venue=$_POST['venue'];
@@ -50,7 +51,10 @@
             // else{
             //     echo "    not inserted";
             // }
-        // }
+        }
+        else{
+            echo "not logged in";
+        }
     }
 
 ?>

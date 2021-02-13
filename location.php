@@ -46,7 +46,7 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"><i class="fas fa-bars" style="color:#000; font-size:35px;"></i></span></button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a href="" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Event</a></li>
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
@@ -59,7 +59,7 @@
                                     <a href="" class="dropdown-item">Reception</a>
                                 </div>
                             </li>     
-                            <li class="nav-item"><a href="" class="nav-link">Location</a></li>
+                            <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
@@ -67,7 +67,7 @@
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
                             <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
-                            <li class="nav-item show1"><a href="" class="nav-link">Signup</a></li>
+                            <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
                             <?php } ?>                    
                         </ul>
                     </div>
@@ -254,7 +254,10 @@
                                 </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-success mr-auto">Create Event</button>
+                                    <button type = "submit" class="btn btn-success mr-auto"><a href="booking.php" class="">Create 
+                                        Event
+                                    </a></button>
+                                    
                                     <button type="submit" class="btn btn-warning"data-dismiss="modal" >Close</button>
                                 </div>
                             </div>
