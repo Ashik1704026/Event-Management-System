@@ -14,6 +14,7 @@
     <title>Booking</title>
     <script src = "js/datepicker.min.js"> </script>
     <link rel = "stylesheet" href = "css/datepicker.css" >
+    <script src="js/sweetalert.min.js"></script>
 </head>
 <body>
           
@@ -47,7 +48,7 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"><i class="fas fa-bars" style="color:#000; font-size:35px;"></i></span></button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a href="" class="nav-link">Home</a></li>
+                            <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Event</a></li>
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
@@ -60,7 +61,7 @@
                                     <a href="" class="dropdown-item">Reception</a>
                                 </div>
                             </li>
-                            <li class="nav-item"><a href="" class="nav-link">Location</a></li>
+                            <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
@@ -505,6 +506,39 @@
             }
         }
     </script>
+
+
+
+                            <!-- Log in and Booking alert -->
+
+    <?php
+        if(empty(isset($_SESSION['username']))){ ?>
+            <script type="text/javascript">
+                swal({
+                title: "log in required",
+                text: "Please log in to book",
+                icon: "warning",
+                });
+            </script>  
+    <?php }
+        if(isset($_SESSION['Dbooksuccess'])){ unset($_SESSION['Dbooksuccess']); ?>
+            <script type="text/javascript">
+                swal({
+                title: "Submitted",
+                text: "Thank you sir,<?php echo $_SESSION['username']?>.For your booking...",
+                icon: "success",
+                });
+            </script> 
+    <?php }
+        if(isset($_SESSION['Dbookerror'])){ unset($_SESSION['Dbookerror']); ?>
+            <script type="text/javascript">
+                swal({
+                title: "Not Submitted",
+                text: "Sorry sir, Please try again....",
+                icon: "error",
+                });
+            </script>
+    <?php } ?>
 
 
 

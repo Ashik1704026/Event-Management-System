@@ -9,10 +9,46 @@
     <script src="js/jquery-slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <title>Registration</title>
 </head>
 <body>
     
+
+                        <!-- signup check -->
+
+
+<?php session_start();                      // signupNotOk not found......
+    if(isset($_SESSION['signupNotok'])){ unset($_SESSION['signupNotok']); ?>
+        <script type="text/javascript">
+            swal({
+            title: "Not Complete",
+            text: "Please try again........",
+            icon: "error",
+            });
+        </script>
+    <?php }                                  // password not match
+    if(isset($_SESSION['signupPassNotmatch'])){ unset($_SESSION['signupPassNotmatch']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Password not match",
+            text: "Please try with same password....",
+            icon: "warning",
+            });
+        </script>
+    <?php }                                 // already exists.......
+    if(isset($_SESSION['signupExists'])){ unset($_SESSION['signupExists']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Already exists......",
+            text: "Username or email already exists. Please try with unique username and email",
+            icon: "warning",
+            });
+        </script>
+    <?php } ?>
+
+
 
 
     <!-- navbar -->
@@ -78,7 +114,7 @@
                                 </div>
                                 <div class="form-group input-group-lg mb-3 mx-2">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" name="email" required>
+                                    <input type="email" class="form-control" aria-describedby="emailHelp" name="email" required>
                                 </div>
                                 <div class="form-group input-group-lg mb-3 mx-2">
                                     <label for="password">Password</label>
@@ -134,9 +170,5 @@
             </div>
         </div>
     </div>
-
-
-
-
 </body>
 </html>

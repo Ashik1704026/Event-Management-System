@@ -41,19 +41,20 @@
             $datediff = $FinalDate - $InitialDate;
             $datediff = round($datediff / (60 * 60 * 24));
             $cost = ($cost / 50) * $Person_num * ($datediff + 1);
-            echo $cost;
-            // $sql="INSERT INTO `events` (`title`, `startDate`, `lastDate`, `person`, `cost`, `locationID`, `username`) VALUES ('$Event', '$StartDate', '$LastDate', '$Person_num', '$cost', '$LocationId', 'xxx')";
-            // $result=mysqli_query($con, $sql);
-            // if( $result ){
-            //     echo "<script type='text/javascript'>alert('submitted successfully!')</script>";
-            //     // header('Location: booking.php'); 
-            // }
-            // else{
-            //     echo "    not inserted";
-            // }
+            // echo $cost;
+            $sql="INSERT INTO `events` (`title`, `startDate`, `lastDate`, `person`, `cost`, `locationID`, `username`) VALUES ('$Event', '$StartDate', '$LastDate', '$Person_num', '$cost', '$LocationId', 'xxx')";
+            $result=mysqli_query($con, $sql);
+            if( $result){
+                $_SESSION['Dbooksuccess'] = 1;
+                header('Location: booking.php'); 
+            }
+            else{
+                $_SESSION['Dbookerror'] = 1;
+                header('Location: booking.php');
+            }
         }
         else{
-            echo "not logged in";
+            header("Location: booking.php");
         }
     }
 

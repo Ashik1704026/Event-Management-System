@@ -17,7 +17,9 @@
 </head>
 <body>
           
-                        <!-- login and logout -->
+                        <!-- login element show or hide-->
+
+
 
     <script>$(document).ready(function(){
         <?php
@@ -30,6 +32,8 @@
         <?php } ?>
     });
     </script>
+
+
 
 
     <!-- header -->
@@ -62,6 +66,9 @@
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
+
+                                            <!-- navbar login signup show or hide -->
+
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
                             <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
@@ -254,9 +261,9 @@
                                 </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type = "submit" class="btn btn-success mr-auto"><a href="booking.php" class="">Create 
+                                    <a href="booking.php" class="mr-auto"><button type = "submit" class="btn btn-success">Create 
                                         Event
-                                    </a></button>
+                                    </button></a>
                                     
                                     <button type="submit" class="btn btn-warning"data-dismiss="modal" >Close</button>
                                 </div>
@@ -274,6 +281,9 @@
             </table>
         </div>
     </div>
+
+
+                                        <!-- table end -->
 
 
 

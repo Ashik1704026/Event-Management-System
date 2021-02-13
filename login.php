@@ -14,12 +14,18 @@
                 }
                 if($pass == $dbpassword){
                     $_SESSION['username'] = $user;
+                    $_SESSION['loginok'] = 1;
                     header("Location: home.php");
                     die;
                 }
                 else{
-                    // header("Location: signup.html");
+                    $_SESSION['passMissmatch'] = 1;
+                    header("Location: home.php");
                 }
+            }
+            else{
+                $_SESSION['loginNotok'] = 1;
+                header("Location: home.php");
             }
         }
     }

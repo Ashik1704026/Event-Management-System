@@ -10,12 +10,15 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <title>Home</title>
 </head>
 <body>
           
-                        <!-- login and logout -->
+                        <!-- login element show or hide-->
+
+
 
     <script>$(document).ready(function(){
         <?php
@@ -61,6 +64,9 @@
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
+
+                                            <!-- navbar login signup show or hide -->
+
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
                             <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
@@ -241,6 +247,39 @@
             </div>
         </div>
     </div>
+
+
+
+                            <!-- Log in alert -->
+
+    <?php    // login......
+    if(($_SESSION['username']) && ($_SESSION['loginok'])){ unset($_SESSION['loginok']); ?>
+        <script type="text/javascript">
+            swal({
+            title: "Logged In",
+            text: "Welcome Sir,<?php echo $_SESSION['username']?>",
+            icon: "success",
+            });
+        </script>  
+    <?php } // userid not found......
+    if(isset($_SESSION['loginNotok'])){ unset($_SESSION['loginNotok']); ?>
+        <script type="text/javascript">
+            swal({
+            title: "Not Found",
+            text: "Seems like that you are new in our system. Please signup first....",
+            icon: "error",
+            });
+        </script>
+    <?php }   // password not match
+    if(isset($_SESSION['passMissmatch'])){ unset($_SESSION['passMissmatch']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Password not match",
+            text: "Please try with correct password or contact with us....",
+            icon: "warning",
+            });
+        </script>
+    <?php } ?>
 
 
     
