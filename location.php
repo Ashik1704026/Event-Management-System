@@ -135,11 +135,10 @@
                     <tr class="">
                         <th class="">Name</th>
                         <th class="">Address</th>
-                        <th class="">Class</th>
-                        <th class="">Package</th>
                         <th class="">Capacity</th>
                         <th class="">Cost</th>
                         <th class="">Availability</th>
+                        <th class = "">Action</th>
                     </tr>
                 </thead>
 
@@ -175,8 +174,6 @@
                     <tr class="">
                         <th data-toggle="modal" data-target="#contactModal-<?php echo $row['locationID']; ?>"><?php echo $row['name'];?></th>
                         <td class=""><?php echo $row['address'];?></td>
-                        <td class=""><?php echo $row['class'];?></td>
-                        <td class=""><?php echo $row['package'];?></td>
                         <td class=""><?php echo $row['capacity'];?></td>
                         <td class=""><?php echo $row['cost'];?></td>
 
@@ -227,6 +224,7 @@
                                 </div>    
                             </div>
                         </td>
+                        <td class=""><a href="booking.php"><button class = "btn btn-success">Create</button></a></td>
                     </tr>
                 </tbody>
 
