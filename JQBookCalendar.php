@@ -1,10 +1,18 @@
 <?php
-    $LocationId = $_POST['LID'];
+    session_start();
+    if(isset($_POST['locname']) && isset($_POST['vname'])){
+        $lname = $_POST['locname'];
+        $vname = $_POST['vname'];
         $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+        $sql=mysqli_query($con,"SELECT `locationID` FROM `location` WHERE `name`='".$vname."' AND `address` = '".$lname."' ");
+        $numrows=mysqli_num_rows($sql);
+        $LocationId = mysqli_fetch_assoc($sql);
+        $LocationId =  $LocationId['locationID'];
+    }
         $curdate=date("d-m-Y");
         $sql=mysqli_query($con,"SELECT * FROM events WHERE locationID='".$LocationId."'");
-        $bookedDAte = array("02-02-2021");
-        $prevDate = "01-05-2020";
+        $bookedDAte = array("08-08-2021");
+        $prevDate = "05-08-2021";
         $start  = new DateTime($prevDate);
         $end    = new DateTime($curdate);
         $format = 'd-m-Y';
@@ -33,4 +41,5 @@
             $bookedDAte = array_merge($bookedDAte,$dates);
         }
     echo json_encode($bookedDAte);
+
 exit;

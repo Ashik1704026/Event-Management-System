@@ -7,7 +7,7 @@
             $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
             $query=mysqli_query($con,"SELECT pass FROM registration WHERE username='".$user."'");
             $numrows=mysqli_num_rows($query);
-            if($numrows!=0){
+            if($numrows == 1){
                 while($row=mysqli_fetch_assoc($query)){  
                     $dbusername=$row['username'];  
                     $dbpassword=$row['pass'];  

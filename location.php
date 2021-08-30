@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +26,6 @@
 
     <script>$(document).ready(function(){
         <?php
-        session_start();
         if($_SESSION['username']){ ?>
             $(".show1").hide();
         <?php }
@@ -168,107 +170,107 @@
                         $dates[] = $start->format($format);
                     }
                     $bookedDAte = array_merge($bookedDAte,$dates);
-                ?>
+                    ?>
 
-                <tbody>
-                    <tr class="">
-                        <th data-toggle="modal" data-target="#contactModal-<?php echo $row['locationID']; ?>"><?php echo $row['name'];?></th>
-                        <td class=""><?php echo $row['address'];?></td>
-                        <td class=""><?php echo $row['capacity'];?></td>
-                        <td class=""><?php echo $row['cost'];?></td>
-
-
-                    <!-- accordion -->
-
-                        <td class="">
-                            <div id="accordion">
-                                <h5>
-                                    <div href="#collapse-<?php echo $row['locationID'];?>" data-toggle="collapse" data-parent="#accordion">
-                                    <i class="fas fa-arrow-circle-down"></i> Check
-                                    </div>
-                                </h5>
-                                <div id="collapse-<?php echo $row['locationID'];?>" class="collapse">
-                                <div class="row">
-                                    <div class="datepicker date calendar-<?php echo $row['locationID'];?>">    
-                                    <h5 class = "text-danger"> Disabled Dates are Booked </h5>
-                                    <?php
-                                        while($RowDate=mysqli_fetch_assoc($sql)){
-                                            $Fdate = $RowDate['startDate'];
-                                            $Ldate = $RowDate['lastDate'];
-                                            $start  = new DateTime($Fdate);
-                                            $end    = new DateTime($Ldate);
-                                            $format = 'd-m-Y';
-                                            $invert = $start > $end;
-
-                                            $dates = array();
-                                            $dates[] = $start->format($format);
-                                            while ($start != $end) {
-                                                $start->modify(($invert ? '-' : '+') . '1 day');
-                                                $dates[] = $start->format($format);
-                                            }
-                                            $bookedDAte = array_merge($bookedDAte,$dates);
-                                        }
-                                    ?>
-                                
-                                    <script type="text/javascript">
-                                        var jArray = <?php echo json_encode($bookedDAte); ?>;
-                                        $('.calendar-<?php echo $row['locationID'];?>').datepicker({
-                                            todayHighlight: true,
-                                            format: 'dd/mm/yyyy',
-                                            datesDisabled: jArray
-                                        });
-
-                                    </script>
-                                    </div> 
-                                </div>
-                                </div>    
-                            </div>
-                        </td>
-                        <td class=""><a href="booking.php"><button class = "btn btn-success">Create</button></a></td>
-                    </tr>
-                </tbody>
+                    <tbody>
+                        <tr class="">
+                            <th data-toggle="modal" data-target="#contactModal-<?php echo $row['locationID']; ?>"><?php echo $row['name'];?></th>
+                            <td class=""><?php echo $row['address'];?></td>
+                            <td class=""><?php echo $row['capacity'];?></td>
+                            <td class=""><?php echo $row['cost'];?></td>
 
 
-                <!-- modals -->
+                        <!-- accordion -->
 
-
-                <div class="modal" id="contactModal-<?php echo $row['locationID']; ?>" >
-                    <div class="container">
-                        <div class="modal-dialog modal-lg modal-md modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="text-info">Recent Events Picture</h3>
-                                    <button class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
+                            <td class="">
+                                <div id="accordion">
+                                    <h5>
+                                        <div href="#collapse-<?php echo $row['locationID'];?>" data-toggle="collapse" data-parent="#accordion">
+                                        <i class="fas fa-arrow-circle-down"></i> Check
+                                        </div>
+                                    </h5>
+                                    <div id="collapse-<?php echo $row['locationID'];?>" class="collapse">
                                     <div class="row">
-                                    <?php
-                                    $sqlPic=mysqli_query($con,"SELECT image FROM images WHERE locationID='".$locID."'");
-                                    while($rowPic=mysqli_fetch_assoc($sqlPic)){
-                                    ?>
-                                    <div class="col-lg-6">
-                                        <div class="card">
-                                            <div class="card-img">
-                                            <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($rowPic['image']).'" class="img-fluid"/>'; ?>
+                                        <div class="datepicker date calendar-<?php echo $row['locationID'];?>">    
+                                        <h5 class = "text-danger"> Disabled Dates are Booked </h5>
+                                        <?php
+                                            while($RowDate=mysqli_fetch_assoc($sql)){
+                                                $Fdate = $RowDate['startDate'];
+                                                $Ldate = $RowDate['lastDate'];
+                                                $start  = new DateTime($Fdate);
+                                                $end    = new DateTime($Ldate);
+                                                $format = 'd-m-Y';
+                                                $invert = $start > $end;
+
+                                                $dates = array();
+                                                $dates[] = $start->format($format);
+                                                while ($start != $end) {
+                                                    $start->modify(($invert ? '-' : '+') . '1 day');
+                                                    $dates[] = $start->format($format);
+                                                }
+                                                $bookedDAte = array_merge($bookedDAte,$dates);
+                                            }
+                                        ?>
+                                    
+                                        <script type="text/javascript">
+                                            var jArray = <?php echo json_encode($bookedDAte); ?>;
+                                            $('.calendar-<?php echo $row['locationID'];?>').datepicker({
+                                                todayHighlight: true,
+                                                format: 'dd/mm/yyyy',
+                                                datesDisabled: jArray
+                                            });
+
+                                        </script>
+                                        </div> 
+                                    </div>
+                                    </div>    
+                                </div>
+                            </td>
+                            <td class=""><a href="booking.php"><button class = "btn btn-success">Create</button></a></td>
+                        </tr>
+                    </tbody>
+
+
+                    <!-- modals -->
+
+
+                    <div class="modal" id="contactModal-<?php echo $row['locationID']; ?>" >
+                        <div class="container">
+                            <div class="modal-dialog modal-lg modal-md modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="text-info">Recent Events Picture</h3>
+                                        <button class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                        <?php
+                                        $sqlPic=mysqli_query($con,"SELECT image FROM images WHERE locationID='".$locID."'");
+                                        while($rowPic=mysqli_fetch_assoc($sqlPic)){
+                                        ?>
+                                        <div class="col-lg-6">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($rowPic['image']).'" class="img-fluid"/>'; ?>
+                                                </div>
                                             </div>
                                         </div>
+                                        <?php } ?>
+                                    <div class="card-img">
+                                        </div>
                                     </div>
-                                    <?php } ?>
-                                <div class="card-img">
                                     </div>
-                                </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="booking.php" class="mr-auto"><button type = "submit" class="btn btn-success">Create 
-                                        Event
-                                    </button></a>
-                                    
-                                    <button type="submit" class="btn btn-warning"data-dismiss="modal" >Close</button>
+                                    <div class="modal-footer">
+                                        <a href="booking.php" class="mr-auto"><button type = "submit" class="btn btn-success">Create 
+                                            Event
+                                        </button></a>
+                                        
+                                        <button type="submit" class="btn btn-warning"data-dismiss="modal" >Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
                 <?php } ?>

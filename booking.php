@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +26,6 @@
 
     <script>$(document).ready(function(){
         <?php
-        session_start();
         if($_SESSION['username']){ ?>
         $(".show1").hide();
         <?php }
@@ -65,11 +68,11 @@
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
-                            <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
-                            <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
+                                <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
+                                <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
-                            <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
-                            <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
+                                <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
+                                <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
                             <?php } ?>  
                         </ul>
                     </div>
@@ -171,22 +174,24 @@
                 <div class="form-group row">
 					<label class="col-sm-2 col-form-label  col-form-label-lg" for="inputState">Location</label>
 					<div class="col-sm-10">
-						<select id="slct1" class="form-control form-control-lg" name = "location" onclick="populate(this.id,'slct2')">
-						<option selected>--Select--</option>
-						<option>Dhaka</option>
-						<option>Chittagong</option>
-						<option>Khulna</option>
-						<option>Rajshahi</option>
-						<option>Barishal</option>
-						<option>Rangpur</option>
+						<select class="form-control form-control-lg" id = "location" name = "location">
+                            <option selected>--Select--</option>
+                            <?php
+                                require 'BookLocation.php';
+                                $locations = loadLocation();
+                                foreach($locations as $location){
+                                    if($location)
+                                        echo "<option id = '".$location."' value = '".$location."' >" .$location. " </option>";
+                                }
+                            ?>
 						</select>
 					</div>
                 </div>
                 <div class="form-group row">
 					<label class="col-sm-2 col-form-label  col-form-label-lg" for="inputState">Venue</label>
 					<div class="col-sm-10">
-						<select id="slct2" class="form-control form-control-lg" name = "venue" onchange="changeCalendar();">
-						<option selected>--Select--</option>
+						<select class="form-control form-control-lg" name="venue" id="venue">
+						    <option selected>--Select--</option>
 						</select>
 					</div>
                 </div>
@@ -337,76 +342,36 @@
 
 
 
-                                            <!-- Select -->
+                                    <!-- Select -->  <!-- Calendar -->
 
-
+    
     <script>
-        function populate(s1,s2){
-            var s1 = document.getElementById(s1);
-            var s2 = document.getElementById(s2);
-            s2.innerHTML = "";
-            if(s1.value == "Dhaka"){
-            var optionArray = ["ss|--Select--","a|Radison Blu","b|Sonarga","c|IWestern","rupusi|Rupusi"];
-            }
-            else if(s1.value == "Chittagong"){
-            var optionArray = ["ss|--Select--","a|Radison Blu","b|Sanmar","c|Port International"];
-            }
-            else if(s1.value == "Rajshahi"){
-            var optionArray = ["ss|--Select--","a|Khan Hotel","b|Hotel X","c|Hotel Y"];
-            }
-            else if(s1.value == "Rangpur"){
-            var optionArray = ["ss|--Select--","a|Khan Hotel","b|Hotel R","c|Hotel F"];
-            }
-            else if(s1.value == "Barishal"){
-            var optionArray = ["ss|--Select--","a|Barishal Hotel","b|Barishal X","c|Barishal Y"];
-            }
-            else if(s1.value == "Khulna"){
-            var optionArray = ["ss|--Select--","a|Khulna Hotel","b|Khulna X","c|Khulna Y"];
-            }
-            for(var option in optionArray){
-            var pair = optionArray[option].split("|");
-            var newOption = document.createElement("option");
-            newOption.name = pair[0];
-            newOption.innerHTML = pair[1];
-            s2.options.add(newOption);
-            }
-        }
-    </script>
-
-
-                                            <!-- Calendar -->
-
-
-
-
-    <script type = "text/javascript">
-
-        function changeCalendar(){
-            var message5 = document.getElementById("slct1").value;
-            var message1 = document.getElementById("slct2").value;
-            if(message5 == "Dhaka"){
-                if(message1 == "Radison Blu")
-                    var dhk = 1;
-                if(message1 == "Sonarga")
-                    var dhk = 2;
-                if(message1 == "IWestern")
-                    var dhk = 3;
-                if(message1 == "Rupusi")
-                    var dhk = 4;
-            }
-            else if(message5 == "Chittagong"){
-                if(message1 == "Radison Blu")
-                    var dhk = 5;
-                if(message1 == "Sanmar")
-                    var dhk = 6;
-                if(message1 == "Port International")
-                    var dhk = 7;
-            }
-            $.post('JQBookCalendar.php',{LID:dhk},
-                function(data){
+        $(document).ready(function(){
+            $("#location").change(function(){
+                var locname = $("#location").val();
+                $.ajax({
+                    url: 'BookLocation.php',
+                    method: 'post',
+                    data: 'locname=' + locname
+                }).done(function(venue){                                            
+                    venue = JSON.parse(venue);
+                    $('#venue').empty();
+                    $('#venue').append('<option>' + '--Select--' + '</option>');
+                    venue.forEach(function(vn){
+                        $('#venue').append('<option>' + vn.name + '</option>');
+                    })
+                })
+            })
+            $("#venue").change(function(){
+                var vname = $("#venue").val();
+                var locname = $("#location").val();
+                // console.log(vname);
+                // console.log(locname);
+                $.post('JQBookCalendar.php',{vname:vname,locname:locname},function(data){
                     $("#SDate").datepicker("destroy");
                     $("#LDate").datepicker("destroy");
                     var jqvar = data;
+                    // console.log(jqvar);
                     $('.Scalendar').datepicker({
                         todayHighlight: true,
                         format: 'dd-mm-yyyy',
@@ -419,11 +384,13 @@
                     });
                     $( "#SDate" ).datepicker("refresh");
                     $( "#LDate" ).datepicker("refresh");
-                }
-            );
-        }
-
+                });
+            })
+        })
     </script>
+
+
+    
 
 
 
@@ -434,23 +401,15 @@
     <script type="text/JavaScript">
         function showMessage(){
             var message = document.getElementsByName("gridRadios");
-            if(message[0].checked)
-                display_messageRadio.innerHTML= message[0].value;
-            if(message[1].checked)
-                display_messageRadio.innerHTML= message[1].value;
-            if(message[2].checked)
-                display_messageRadio.innerHTML= message[2].value;
-            if(message[3].checked)
-            display_messageRadio.innerHTML= message[3].value;
-            if(message[4].checked)
-                display_messageRadio.innerHTML= message[4].value;
-            if(message[5].checked)
-                display_messageRadio.innerHTML= message[5].value;
-                
-            var message5 = document.getElementById("slct1").value;
+            for(let i = 0;i < message.length;i ++){
+                if(message[i].checked){
+                    display_messageRadio.innerHTML= message[i].value;
+                }
+            }
+            var message5 = document.getElementById("location").value;
             display_messageLocation.innerHTML= message5;
 
-            var message1 = document.getElementById("slct2").value;
+            var message1 = document.getElementById("venue").value;
             display_messageVenue.innerHTML= message1;
 
             var message2 = document.getElementById("SDate").value;
@@ -462,25 +421,6 @@
             var message4 = document.getElementById("NOofPerson").value;
             display_messageNo_Persom.innerHTML= message4;
                                                             
-                                                            
-            if(message5 == "Dhaka"){
-                if(message1 == "Radison Blu")
-                    var dhk = 1;
-                if(message1 == "Sonarga")
-                    var dhk = 2;
-                if(message1 == "IWestern")
-                    var dhk = 3;
-                if(message1 == "Rupusi")
-                    var dhk = 4;
-            }
-            else if(message5 == "Chittagong"){
-                if(message1 == "Radison Blu")
-                    var dhk = 5;
-                if(message1 == "Sanmar")
-                    var dhk = 6;
-                if(message1 == "Port International")
-                    var dhk = 7;
-            }
 
             var date_diff_indays = function(date1, date2) {
                 dt1 = new Date(date1);
@@ -493,9 +433,12 @@
             var newdate2 = datearray[1] + '-' + datearray[0] + '-' + datearray[2];
 
             if(message4 >= 50){
-                $.post('JQBook.php',{LID:dhk},
-                    function(data){
+                $.post('JQBook.php',{vname:message1,locname:message5},function(data){
                     var jqvar = data;
+                    // console.log(jqvar);
+                    // console.log(message4);
+                    // var datediff = date_diff_indays(newdate1,newdate2)+1;
+                    // console.log(datediff);
                     display_messageTotalCost.innerHTML = (jqvar / 50) * message4 * (date_diff_indays(newdate1,newdate2)+1);
                 });
             }
@@ -520,7 +463,8 @@
                 icon: "warning",
                 });
             </script>  
-    <?php }
+    <?php } ?>
+    <?php
         if(isset($_SESSION['Dbooksuccess'])){ unset($_SESSION['Dbooksuccess']); ?>
             <script type="text/javascript">
                 swal({
@@ -529,7 +473,8 @@
                 icon: "success",
                 });
             </script> 
-    <?php }
+    <?php } ?>
+    <?php
         if(isset($_SESSION['Dbookerror'])){ unset($_SESSION['Dbookerror']); ?>
             <script type="text/javascript">
                 swal({
@@ -542,5 +487,5 @@
 
 
 
-</body>
+    </body>
 </html>

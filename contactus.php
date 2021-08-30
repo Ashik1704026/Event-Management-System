@@ -18,7 +18,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="fontawesome/css/all.css">
-    <title>Home</title>
+    <title>Contact Us</title>
 </head>
 <body>
           
@@ -69,7 +69,7 @@
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-                            <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
+                            <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
 
                                             <!-- navbar login signup show or hide -->
 
@@ -126,41 +126,58 @@
 
 
 
-    <!-- DO List -->
-
-
-
-    <div class="do">
-        <div class="container">
-            <h2 class="display-4">What We Organize</h2>
-            <hr class="my-4">
-            <div class="row">
-                <?php
-                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
-                    $query=mysqli_query($con,"SELECT * FROM eventList");
-                    while($row=mysqli_fetch_assoc($query)){
-                        $name = $row['name']; ?>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card my-4">
-                                <div class="card-head text-center bg-info py-2">
-                                    <h2 class = "text-white"><?php echo $name ?></h2>
-                                </div>
-                                <div class="card-img">
-                                    <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" class="img-fluid"/>'; ?>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="<?php echo $name ?>.html" class="card-link"><button class="btn btn-outline-success btn-block">Show Details</button></a>
-                                </div>
-                            </div>
-                        </div>
-                <?php } ?>
+                        <!-- Contact Form -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1 class = "text-info"> <b>Feel Free To Contact With Us</b></h1>
             </div>
+            <!-- <div class="col-sm-12 text-center">
+                <h1> <b>Your Comments Is Our Top Priority</b></h1>
+            </div> -->
         </div>
     </div>
+              
+    <div class="container my-5">
+        <form action="DBcontactUs.php" method = "POST">
+            <div class="row form-group justify-content-center my-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg font-weight-bold">Name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-lg" placeholder="Your Name" name = "name">
+                </div>
+            </div>
+            <div class="row form-group justify-content-center my-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg font-weight-bold">Email</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control form-control-lg" placeholder="ex@mail.com" name = "email">
+                </div>
+            </div>
+            <div class="row form-group justify-content-center my-4">
+                <label class="col-sm-2 col-form-label col-form-label-lg font-weight-bold">Comments</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" rows="10" name = "comments"></textarea>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row justify-content-end">
+                        <div class="col-sm-2">
+                            <input type="submit" value="Submit" class="btn btn-success btn-lg mb-3 " name="submit">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>     
+    
+    
+                
+                   
+     
 
 
 
-    <!-- footer -->
+                        <!-- footer -->
 
 
 
@@ -197,37 +214,27 @@
 
 
 
-                            <!-- Log in alert -->
+                            <!-- Success alert -->
 
-    <?php    // login......
-    if(isset($_SESSION['loginok'])){ unset($_SESSION['loginok']) ?>
+    <?php    // success......
+        if(isset($_SESSION['comments'])){ unset($_SESSION['comments']) ?>
+            <script type="text/javascript">
+                swal({
+                title: "Submitted",
+                text: "Thanks For Your Valueable Comments",
+                icon: "success",
+                });
+            </script>  
+    <?php } // Not success......
+    if(isset($_SESSION['commentsNot'])){ unset($_SESSION['commentsNot']); ?>
         <script type="text/javascript">
             swal({
-            title: "Logged In",
-            text: "Welcome Sir,<?php echo $_SESSION['username']?>",
-            icon: "success",
-            });
-        </script>  
-    <?php } // userid not found......
-    if(isset($_SESSION['loginNotok'])){ unset($_SESSION['loginNotok']); ?>
-        <script type="text/javascript">
-            swal({
-            title: "Not Found",
-            text: "Seems like that you are new in our system. Please signup first....",
+            title: "Not Submitted",
+            text: "Please Try Again.....",
             icon: "error",
             });
         </script>
-    <?php }   // password not match
-    if(isset($_SESSION['passMissmatch'])){ unset($_SESSION['passMissmatch']); ?> 
-        <script type="text/javascript">
-            swal({
-            title: "Password not match",
-            text: "Please try with correct password or contact with us....",
-            icon: "warning",
-            });
-        </script>
     <?php } ?>
-
 
     
 </body>
