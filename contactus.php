@@ -155,7 +155,7 @@
             <div class="row form-group justify-content-center my-4">
                 <label class="col-sm-2 col-form-label col-form-label-lg font-weight-bold">Comments</label>
                 <div class="col-sm-6">
-                    <textarea class="form-control" rows="10" name = "comments"></textarea>
+                    <textarea class="form-control form-control-lg" rows="8" name = "comments" placeholder = "Your valueable comments..."></textarea>
                 </div>
             </div>
             <div class="row justify-content-center">

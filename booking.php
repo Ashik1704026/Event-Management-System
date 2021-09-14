@@ -66,7 +66,7 @@
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
+                            <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
                                 <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                                 <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
@@ -124,13 +124,13 @@
     
 
     <div class="book">
-        <div class="container">
+        <div class="container my-5">
             <form action="Dbook.php" method="POST" name = "myform">
                 <fieldset class="form-group">
                     <div class="row">
                        	<div class="col-form-label col-form-label-lg col-sm-2 col-md-2 col-lg-2 pt-2">Event</div>
                       	<div class="col-sm-10 col-md-10 col-lg-10">
-							<div class="row">
+							<div class="row ml-2" required>
 								<div class="col-lg-4 col-md-4 form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Wedding">
 									<label class="form-check-label col-form-label-lg" for="gridRadios1">
@@ -174,7 +174,7 @@
                 <div class="form-group row">
 					<label class="col-sm-2 col-form-label  col-form-label-lg" for="inputState">Location</label>
 					<div class="col-sm-10">
-						<select class="form-control form-control-lg" id = "location" name = "location">
+						<select class="form-control form-control-lg" id = "location" name = "location" required>
                             <option selected>--Select--</option>
                             <?php
                                 require 'BookLocation.php';
@@ -195,7 +195,7 @@
 						</select>
 					</div>
                 </div>
-                <!-- <p id = "display_check"></p> -->
+                
                 <div class="form-group row">
 					<label for="" class="col-sm-2 col-form-label col-form-label-lg">Start Date</label>
 					<div class="col-sm-10">
@@ -401,25 +401,45 @@
     <script type="text/JavaScript">
         function showMessage(){
             var message = document.getElementsByName("gridRadios");
+            var ok = 0;
             for(let i = 0;i < message.length;i ++){
                 if(message[i].checked){
+                    ok = 1;
                     display_messageRadio.innerHTML= message[i].value;
                 }
             }
+            if(ok == 0)
+            display_messageRadio.innerHTML= 'required';
+
             var message5 = document.getElementById("location").value;
-            display_messageLocation.innerHTML= message5;
+            if(message5 != '--Select--')
+                display_messageLocation.innerHTML= message5;
+            else
+                display_messageLocation.innerHTML= 'required';
 
             var message1 = document.getElementById("venue").value;
-            display_messageVenue.innerHTML= message1;
+            if(message1 != '--Select--')
+                display_messageVenue.innerHTML= message1;
+            else
+                display_messageVenue.innerHTML= 'required';
 
             var message2 = document.getElementById("SDate").value;
-            display_messageStartDate.innerHTML= message2;
+            if(message2)
+                display_messageStartDate.innerHTML= message2;
+            else
+                display_messageStartDate.innerHTML= 'required';
 
             var message3 = document.getElementById("LDate").value;
-            display_messageLastDate.innerHTML= message3;
+            if(message3)
+                display_messageLastDate.innerHTML= message3;
+            else
+                display_messageLastDate.innerHTML= 'required';
 
             var message4 = document.getElementById("NOofPerson").value;
-            display_messageNo_Persom.innerHTML= message4;
+            if(message4)
+                display_messageNo_Persom.innerHTML= message4;
+            else
+                display_messageNo_Persom.innerHTML= 'required'; 
                                                             
 
             var date_diff_indays = function(date1, date2) {
@@ -442,7 +462,7 @@
                     display_messageTotalCost.innerHTML = (jqvar / 50) * message4 * (date_diff_indays(newdate1,newdate2)+1);
                 });
             }
-            if(message4 < 50){
+            if(message4 < 50 && message4){
                 display_messageNo_Persom.innerHTML= "Not Enough";
                 display_messageTotalCost.innerHTML = "Please Re-check";
                 Less50alert.innerHTML = "**Total perticipant number must be greater than or equal Fifty(50)**";
@@ -480,6 +500,26 @@
                 swal({
                 title: "Not Submitted",
                 text: "Sorry sir, Please try again....",
+                icon: "error",
+                });
+            </script>
+    <?php } ?>
+    <?php
+        if(isset($_SESSION['NotEnoughPeople'])){ unset($_SESSION['NotEnoughPeople']); ?>
+            <script type="text/javascript">
+                swal({
+                title: "Not Submitted",
+                text: "Total Number of People Must Be Atleast 50....",
+                icon: "error",
+                });
+            </script>
+    <?php } ?>
+    <?php
+        if(isset($_SESSION['InfoNotGiven'])){ unset($_SESSION['InfoNotGiven']); ?>
+            <script type="text/javascript">
+                swal({
+                title: "Not Submitted",
+                text: "All The Information Must Be Filled....",
                 icon: "error",
                 });
             </script>

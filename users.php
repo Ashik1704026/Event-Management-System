@@ -3,6 +3,7 @@
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +13,10 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/jquery-slim.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="fontawesome/css/all.css">
     <title>Users</title>
 </head>
@@ -99,10 +102,166 @@
 
 
 
+                                <!-- Profile -->
+
+
+    <?php
+        $username = $_SESSION['username'];
+        // echo $username;
+        $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+        $sql=mysqli_query($con,"SELECT * FROM `registration` WHERE `username`='$username'");
+        $numrows=mysqli_num_rows($sql);
+        // echo $numrows;
+        while($row=mysqli_fetch_assoc($sql)){
+            $fname = $row['fname'];
+            $lname = $row['lname'];
+            $email = $row['email'];
+            $password = $row['pass'];
+            $img = $row['img'];
+        }
+        // echo $fname,$lname,$email,$password;
+    ?>
+
+    <div class="container mt-5">
+    <h2 class = "text-center mt-4 text-info"><b>Your Profile</b></h5>
+    <hr class="my-4 bg-danger">
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="row">
+
+                                <!-- Profile Picture -->
+
+                    <div class="col-sm-4 bg-primary rounded-left">
+                        <div class="card-block text-center text-white">
+                            <!-- <i class="fas fa-user-tie fa-7x mt-5"></i> -->
+                            <!-- <img src="img/party2.jpg" alt="" class="rounded-circle w-75 mt-5"> -->
+                            <?php echo '<img src="upload/'.$img.'" class="img-fluid rounded-circle w-50 mt-5"/>'; ?>
+                            <h2 class="font-weight-bold"><?php echo $username; ?></h2>
+                            <!-- <p>Web Designer</p>
+                            <i class="far fa-edit fa-2x mb-4"></i> -->
+                            <a class="text-white" data-toggle="collapse" href="#collapProfilePic" role="button" aria-expanded="false">
+                                <i class="far fa-edit fa-2x mb-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                                <!-- Profile Information -->
+
+                    <div class="col-sm-8 bg-light rounded-right">
+                        <h3 class="mt-3 text-center">Information</h3>
+                        <hr class="badge-primary mt-0 w-50">
+                        <div class="row">
+                            <div class="col-sm-4 text-left">
+                                <p class="font-weight-bold">Name</p>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <h6 class="text-muted"><?php echo $fname, " ",$lname; ?></h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-left">
+                                <p class="font-weight-bold">Email</p>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <h6 class="text-muted"><?php echo $email; ?></h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-left">
+                                <p class="font-weight-bold">User Name</p>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <h6 class="text-muted"><?php echo $username; ?></h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 text-left">
+                                <p class="font-weight-bold">Password</p>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <h6 class="text-muted"><?php echo $password; ?></h6>
+                            </div>
+                        </div>
+                        <a class="btn btn-outline-warning btn-sm btn-block pt-2" data-toggle="collapse" href="#collapseInfo" role="button" aria-expanded="false">
+                            Update
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                        <!-- Profile Picture -->
+
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="collapse" id="collapProfilePic">
+                    <!-- <div class="card card-body py-2"> -->
+                        <form action="updateUserInfo.php" method="POST" enctype="multipart/form-data">
+                            <div class="row mt-2">
+                                <div class="custom-file col-sm-10">
+                                    <input type="file" name = "profilePic">
+                                    <!-- class="custom-file-input" id="customFile" -->
+                                    <!-- <label class="custom-file-label" for="customFile">Choose Profile Pic</label> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <input type="submit" value="Update Pic" class="btn btn-info btn-md mb-3" name="submit">
+                                </div>
+                            </div>
+                        </form>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+
+                            <!-- Profile Information -->
+
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="collapse mt-2" id="collapseInfo">
+                    <div class="card card-body py-2">
+                        <form action="updateUserInfo.php" method="POST">
+                            <div class="d-flex">
+                                <div class="form-group input-group-lg mb-3 col-6 flex-margin">
+                                    <label for="first_name">First name</label>
+                                    <input type="text" class="form-control" name="fname" placeholder = "<?php echo $fname;?>">
+                                </div>
+                                <div class="form-group input-group-lg mb-3 col-6 ml-2">
+                                    <label for="last_name">Last name</label>
+                                    <input type="text" class="form-control" name="lname" placeholder = "<?php echo $lname;?>">
+                                </div>
+                                </div>
+                                <div class="form-group input-group-lg mb-3 mx-2">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" aria-describedby="emailHelp" name="email" placeholder = "<?php echo $email;?>">
+                                </div>
+                                <div class="form-group input-group-lg mb-3 mx-2">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" name="pass" placeholder = "<?php echo $password;?>">
+                                </div>
+                                <div class="form-group input-group-lg mb-3 mx-2">
+                                    <label for="C-password">Confirm password</label>
+                                    <input type="password" class="form-control" name="confpass">
+                                </div>
+                                <div class="row justify-content-center">
+                                    <input type="submit" value="Update Info" class="btn btn-info btn-lg mb-3" name="submit">
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4 bg-danger">
+    </div>
+
+
+
+
+
                             <!-- Previous Event List -->
 
     <div class = "container my-5">
-    <h2 class = "text-center my-4"><b>Your Previous Events With Us</b></h5>
+    <h2 class = "text-center my-4 text-info"><b>Your Previous Events With Us</b></h5>
+    <hr class="my-4 bg-dark">
     <?php
         $dt = date("d-m-Y");
         if(isset($_SESSION['username'])){
@@ -126,22 +285,22 @@
         
             <div class="row my-2">
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Event Name </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Event Name </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Venue </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Venue </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Location </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Location </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Date </b> </h5> 
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Date </b> </h5> 
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> No of Person </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> No of Person </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Cost </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Cost </b> </h5>
                 </div>
             </div>
         
@@ -150,31 +309,32 @@
                     if(strtotime($rws['startDate']) < strtotime($dt)){?>
                     <div class="row">
                         <div class="col-lg-2">
-                            <h6 class = "text-center"> <?php echo $rws['title'];?> </h5>
+                            <h6 style = "font-family:Didot;" class = "text-center"> <?php echo $rws['title'];?> </h5>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"> <?php echo $rws['name'];?> </h5>
+                            <h6 style = "font-family:Didot;" class = "text-center"> <?php echo $rws['name'];?> </h5>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['address'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['address'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['startDate'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['startDate'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['person'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['person'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['cost'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['cost'];?> </h6>
                         </div>
                     </div>  
                     <?php }
                 }
             }
             else{ ?>
-                <h4 class = "text-center my-4 text-danger"><b>You Do Not Have Any</b></h4>
+                <h4 class = "text-center my-4 text-dastyle = "font-family:Didot;" nger"><b>You Do Not Have Any</b></h4>
             <?php }
         ?>
+        <hr class="my-4 bg-dark">
 
     </div>
 
@@ -185,7 +345,8 @@
 
 
     <div class = "container my-5">
-    <h2 class = "text-center my-4"><b>Your On Going Event With Us</b></h5>
+    <h2 class = "text-center my-4 text-info"><b>Your On Going Event With Us</b></h5>
+    <hr class="my-4 bg-danger">
     <?php
         $dt = date("d-m-Y");
         if(isset($_SESSION['username'])){
@@ -209,22 +370,22 @@
         
             <div class="row my-2">
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Event Name </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Event Name </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Venue </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Venue </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Location </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Location </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Date </b> </h5> 
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Date </b> </h5> 
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> No of Person </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> No of Person </b> </h5>
                 </div>
                 <div class="col-lg-2">
-                    <h5 class = "text-center"> <b> Cost </b> </h5>
+                    <h5 style = "font-family:Didot;" class = "text-center"> <b> Cost </b> </h5>
                 </div>
             </div>
         
@@ -233,22 +394,22 @@
                     if(strtotime($rws['startDate']) >= strtotime($dt)){?>
                     <div class="row">
                         <div class="col-lg-2">
-                            <h6 class = "text-center"> <?php echo $rws['title'];?> </h5>
+                            <h6 style = "font-family:Didot;" class = "text-center"> <?php echo $rws['title'];?> </h5>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"> <?php echo $rws['name'];?> </h5>
+                            <h6 style = "font-family:Didot;" class = "text-center"> <?php echo $rws['name'];?> </h5>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['address'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['address'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['startDate'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['startDate'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['person'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['person'];?> </h6>
                         </div>
                         <div class="col-lg-2">
-                            <h6 class = "text-center"><?php echo $rws['cost'];?> </h6>
+                            <h6 style = "font-family:Didot;" class = "text-center"><?php echo $rws['cost'];?> </h6>
                         </div>
                     </div>  
                     <?php }
@@ -258,6 +419,7 @@
                 <h4 class = "text-center my-4 text-danger"><b>Currently You Do Not Have Any</b></h4>
             <?php }
         ?>
+        <hr class="my-4 bg-danger">
 
     </div>
 
@@ -299,6 +461,48 @@
             </div>
         </div>
     </div>
+
+
+
+                    <!-- Warning and Confirmation -->
+     <?php    // successful update......
+    if(isset($_SESSION['userupdateok'])){ unset($_SESSION['userupdateok']) ?>
+        <script type="text/javascript">
+            swal({
+            title: "Updated....",
+            text: "Successfully updated your information Sir,<?php echo $_SESSION['username']?>",
+            icon: "success",
+            });
+        </script>  
+    <?php }
+    if(isset($_SESSION['userupdateNotok'])){ unset($_SESSION['userupdateNotok']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Something Went Wrong....",
+            text: "Please try again or contact with us....",
+            icon: "error",
+            });
+        </script>
+    <?php }
+    if(isset($_SESSION['userupdatePicNotok'])){ unset($_SESSION['userupdatePicNotok']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Something Went Wrong....",
+            text: "Please try original image file or contact with us....",
+            icon: "error",
+            });
+        </script>
+    <?php }
+    if(isset($_SESSION['userupdatePicok'])){ unset($_SESSION['userupdatePicok']); ?> 
+        <script type="text/javascript">
+            swal({
+            title: "Updated....",
+            text: "Successfully updated your Profile Picture Sir,<?php echo $_SESSION['username']?>",
+            icon: "success",
+            });
+        </script>
+    <?php } ?>
+
 
 
     

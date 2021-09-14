@@ -143,7 +143,7 @@
                         <div class="col-lg-4 col-md-6">
                             <div class="card my-4">
                                 <div class="card-head text-center bg-info py-2">
-                                    <h2 class = "text-white"><?php echo $name ?></h2>
+                                    <h2 style = "font-family:Didot;" class = "text-white"><?php echo $name ?></h2>
                                 </div>
                                 <div class="card-img">
                                     <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['img']).'" class="img-fluid"/>'; ?>
@@ -155,6 +155,7 @@
                         </div>
                 <?php } ?>
             </div>
+            <hr class="my-4">
         </div>
     </div>
 
