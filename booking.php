@@ -52,26 +52,26 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Event</a></li>
+                            <!-- <li class="nav-item"><a href="" class="nav-link">Event</a></li> -->
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Wedding</a>
-                                    <a href="" class="dropdown-item">Birthday</a>
-                                    <a href="" class="dropdown-item">Anniversary</a>
-                                    <a href="" class="dropdown-item">Conference</a>
-                                    <a href="" class="dropdown-item">Party</a>
-                                    <a href="" class="dropdown-item">Reception</a>
+                                    <a href="Wedding.php" class="dropdown-item">Wedding</a>
+                                    <a href="Birthday.php" class="dropdown-item">Birthday</a>
+                                    <a href="Anniversary.php" class="dropdown-item">Anniversary</a>
+                                    <a href="Conference.php" class="dropdown-item">Conference</a>
+                                    <a href="Party.php" class="dropdown-item">Party</a>
+                                    <a href="Reception.php" class="dropdown-item">Reception</a>
                                 </div>
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
                             <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
-                                <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
+                                <li class="nav-item log1"><a href="users.php" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                                 <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
-                                <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
+                                <li class="nav-item show1"><a href="home.php" class="nav-link">Login</a></li>
                                 <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
                             <?php } ?>  
                         </ul>
@@ -125,48 +125,27 @@
 
     <div class="book">
         <div class="container my-5">
+            <h2 class = "font-weight-bold text-info">Thanks for Booking With Us</h2>
+            <hr class = "mb-3 bg-dark">
             <form action="Dbook.php" method="POST" name = "myform">
                 <fieldset class="form-group">
                     <div class="row">
                        	<div class="col-form-label col-form-label-lg col-sm-2 col-md-2 col-lg-2 pt-2">Event</div>
                       	<div class="col-sm-10 col-md-10 col-lg-10">
-							<div class="row ml-2" required>
-								<div class="col-lg-4 col-md-4 form-check form-check-inline">
+							<div class="row ml-2 " required>
+                                <?php
+                                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                                    $query=mysqli_query($con,"SELECT * FROM eventList");
+                                    while($row=mysqli_fetch_assoc($query)){
+
+                                ?>
+								<div class="col-lg-3 col-md-4 form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Wedding">
 									<label class="form-check-label col-form-label-lg" for="gridRadios1">
-									Wedding
+									    <?php echo $row['name'] ?>
 									</label>
 								</div>
-								<div class="col-lg-4 col-md-4 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Birthday">
-									<label class="form-check-label col-form-label-lg" for="gridRadios2">
-									Birthday
-									</label>
-								</div>
-								<div class="col-lg-3 col-md-2 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Anniversary">
-									<label class="form-check-label col-form-label-lg" for="gridRadios2">
-									Anniversary
-									</label>
-								</div>
-								<div class="col-lg-4 col-md-4 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Conference">
-									<label class="form-check-label col-form-label-lg" for="gridRadios2">
-									Conference
-									</label>
-								</div>
-								<div class="col-lg-4 col-md-4 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Party">
-									<label class="form-check-label col-form-label-lg" for="gridRadios2">
-									Party
-									</label>
-								</div>
-								<div class="col-lg-2 col-md-2 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Reception">
-									<label class="form-check-label col-form-label-lg" for="gridRadios2">
-									Reception
-									</label>
-								</div>
+                                <?php } ?>
 							</div>
                       	</div>
                     </div>

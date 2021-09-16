@@ -1,8 +1,8 @@
 <?php
     session_start();
-    echo "Fine";
+    // echo "Fine";
     if(isset($_POST["submit"])){
-        echo "Submit Clicked";
+        // echo "Submit Clicked";
         $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
         $username = $_SESSION['username'];
         if(!empty($_POST['fname'])){

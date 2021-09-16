@@ -39,24 +39,24 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Event</a></li>
+                            <!-- <li class="nav-item"><a href="" class="nav-link">Event</a></li> -->
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Wedding</a>
-                                    <a href="" class="dropdown-item">Birthday</a>
-                                    <a href="" class="dropdown-item">Anniversary</a>
-                                    <a href="" class="dropdown-item">Conference</a>
-                                    <a href="" class="dropdown-item">Party</a>
-                                    <a href="" class="dropdown-item">Reception</a>
+                                    <a href="Wedding.php" class="dropdown-item">Wedding</a>
+                                    <a href="Birthday.php" class="dropdown-item">Birthday</a>
+                                    <a href="Anniversary.php" class="dropdown-item">Anniversary</a>
+                                    <a href="Conference.php" class="dropdown-item">Conference</a>
+                                    <a href="Party.php" class="dropdown-item">Party</a>
+                                    <a href="Reception.php" class="dropdown-item">Reception</a>
                                 </div>
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
+                            <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
 
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
-                            <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
+                            <li class="nav-item log1"><a href="home.php" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php } ?>
 

@@ -18,7 +18,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="fontawesome/css/all.css">
-    <title>Home</title>
+    <title>Anniversary</title>
 </head>
 <body>
           
@@ -126,42 +126,40 @@
 
 
 
-    <!-- DO List -->
+                        <!-- Image and Details Show -->
+              
+    <div class="container">
+        <h2 class = "mt-5 font-weight-bold text-info">Some Photos of Our Recent Activities.....</h2>
+        <hr>
 
-
-
-    <div class="do">
-        <div class="container">
-            <h2 class="display-4">What We Organize</h2>
-            <hr class="my-4">
-            <div class="row">
-                <?php
-                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
-                    $query=mysqli_query($con,"SELECT * FROM eventList");
-                    while($row=mysqli_fetch_assoc($query)){
-                        $name = $row['name']; ?>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card my-4">
-                                <div class="card-head text-center bg-info py-2">
-                                    <h2 style = "font-family:Didot;" class = "text-white"><?php echo $name ?></h2>
-                                </div>
-                                <div class="card-img">
-                                    <?php echo '<img src="upload/'.$row['image'].'" class="img-fluid"/>'; ?>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="<?php echo $name ?>.php" class="card-link"><button class="btn btn-outline-success btn-block">Show Details</button></a>
-                                </div>
-                            </div>
-                        </div>
-                <?php } ?>
+        <div class="row mb-5 mt-4">
+            <?php
+                $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                $sqlPic=mysqli_query($con," SELECT * FROM `images` WHERE event = 'Anniversary' ");
+                while($rowPic=mysqli_fetch_assoc($sqlPic)){
+            ?>
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
+                <div class="card">
+                    <?php echo '<img src="upload/'.$rowPic['image'].'"width="100%" height="350"/>'; ?>
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">On <?php echo $rowPic['venue'] ?>, <?php echo $rowPic['location'] ?></h5>
+                        <p class="card-text"> <?php echo $rowPic['description'] ?> </p>
+                        <a href="booking.php" class="btn btn-primary">Go Booking Page</a>
+                    </div>
+                </div>
             </div>
-            <hr class="my-4">
+
+            <?php }?>
         </div>
     </div>
+    
+                
+                   
+     
 
 
 
-    <!-- footer -->
+                        <!-- footer -->
 
 
 
@@ -198,37 +196,27 @@
 
 
 
-                            <!-- Log in alert -->
+                            <!-- Success alert -->
 
-    <?php    // login......
-    if(isset($_SESSION['loginok'])){ unset($_SESSION['loginok']) ?>
+    <?php    // success......
+        if(isset($_SESSION['comments'])){ unset($_SESSION['comments']) ?>
+            <script type="text/javascript">
+                swal({
+                title: "Submitted",
+                text: "Thanks For Your Valueable Comments",
+                icon: "success",
+                });
+            </script>  
+    <?php } // Not success......
+    if(isset($_SESSION['commentsNot'])){ unset($_SESSION['commentsNot']); ?>
         <script type="text/javascript">
             swal({
-            title: "Logged In",
-            text: "Welcome Sir,<?php echo $_SESSION['username']?>",
-            icon: "success",
-            });
-        </script>  
-    <?php } // userid not found......
-    if(isset($_SESSION['loginNotok'])){ unset($_SESSION['loginNotok']); ?>
-        <script type="text/javascript">
-            swal({
-            title: "Not Found",
-            text: "Seems like that you are new in our system. Please signup first....",
+            title: "Not Submitted",
+            text: "Please Try Again.....",
             icon: "error",
             });
         </script>
-    <?php }   // password not match
-    if(isset($_SESSION['passMissmatch'])){ unset($_SESSION['passMissmatch']); ?> 
-        <script type="text/javascript">
-            swal({
-            title: "Password not match",
-            text: "Please try with correct password or contact with us....",
-            icon: "warning",
-            });
-        </script>
     <?php } ?>
-
 
     
 </body>

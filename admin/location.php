@@ -186,39 +186,39 @@
                         <button type="submit" class="btn btn-primary btn-lg btn-block mb-5 font-weight-bold" data-toggle="collapse" data-target="#collapseAddLocation" aria-expanded="false">Add New Location and Venue</button>
                         <div class="collapse mb-5" id="collapseAddLocation">
                             <div class="card card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label class = "text-dark">Hotel Name</label>
-                                        <input type="text" class="form-control">
+                                <form method = "post" action = "addLocation.php">
+                                    <div class="row">
+                                        <div class="form-group col-lg-6">
+                                            <label class = "text-dark">Hotel Name</label>
+                                            <input type="text" class="form-control" name = "hotelName">
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label class = "text-dark">Location Name</label>
+                                            <input type="text" class="form-control" name = "locationName">
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-6">
-                                        <label class = "text-dark">Location Name</label>
-                                        <input type="text" class="form-control">
+                                    <div class="row">
+                                        <div class="form-group col-lg-8">
+                                            <label class = "text-dark">Email address</label>
+                                            <input type="email" class="form-control" name = "email">
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label class = "text-dark">Capacity</label>
+                                            <input type="text" class="form-control" name = "capacity">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-8">
-                                        <label class = "text-dark">Email address</label>
-                                        <input type="email" class="form-control">
+                                    <div class="row">
+                                        <div class="form-group col-lg-8">
+                                            <label class = "text-dark">Phone Number</label>
+                                            <input type="text" class="form-control" name = "phoneNumber">
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label class = "text-dark">Cost</label>
+                                            <input type="text" class="form-control" name = "cost">
+                                        </div>
                                     </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class = "text-dark">Capacity</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-8">
-                                        <label class = "text-dark">Phone Number</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class = "text-dark">Cost</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-outline-success btn-block text-dark">Submit</button>
-                            </form>
+                                    <button type="submit" class="btn btn-outline-success btn-block text-dark" name = "submit">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -232,7 +232,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr class = "text-center">
                                         <th>Hotel Name</th>
@@ -263,18 +263,67 @@
                                     // echo $numrows;
                                     foreach($resultArray as $rws){
                                 ?>
-                                    <tr class = "text-center">
-                                        <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['address']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['email']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['phone']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['capacity']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['cost']; ?> </td>
-                                        <td class="align-middle">
-                                            <a href="deleteUsephp?username=<?php echo $username; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
-                                            <a href="deleteUserphp?username=<?php echo $username; ?>"> <span class = "text-warning"><i class = "fas fa-edit fa-2x"></i> </span></a> 
+                                    <tr class = "">
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['name']; ?> </td>
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['address']; ?> </td>
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['email']; ?> </td>
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['phone']; ?> </td>
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['capacity']; ?> </td>
+                                        <td class="align-middle text-dark text-center"> <?php echo $rws['cost']; ?> </td>
+                                        <td class="">
+                                            <a href="deleteLocation.php?locationId=<?php echo $rws['locationID']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
+                                            <a href="#editLocation<?php echo $rws['locationID']; ?>" data-toggle="modal" style="float: right;"> <span class = "text-warning"><i class = "fas fa-edit fa-2x"></i> </span></a> 
                                         </td>
                                     </tr>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="editLocation<?php echo $rws['locationID']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title font-weigth-bold" >Edit For <?php echo $rws['name']; ?>, <?php echo $rws['address']; ?> </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method = "post" action = "editLocation.php">
+                                                        <input type="hidden" name = "locationId" value = "<?php echo $rws['locationID']; ?>">
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label class = "text-dark">Hotel Name</label>
+                                                                <input type="text" class="form-control" name = "hotelName">
+                                                             </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label class = "text-dark">Location Name</label>
+                                                                <input type="text" class="form-control" name = "locationName">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-8">
+                                                                <label class = "text-dark">Email address</label>
+                                                                <input type="email" class="form-control" name = "email">
+                                                            </div>
+                                                            <div class="form-group col-lg-4">
+                                                                <label class = "text-dark">Capacity</label>
+                                                                <input type="text" class="form-control" name = "capacity">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-8">
+                                                                <label class = "text-dark">Phone Number</label>
+                                                                <input type="text" class="form-control" name = "phoneNumber">
+                                                            </div>
+                                                            <div class="form-group col-lg-4">
+                                                                <label class = "text-dark">Cost</label>
+                                                                <input type="text" class="form-control" name = "cost">
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-outline-success btn-block text-dark" name = "submit">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -311,11 +360,11 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- <script src="js/demo/datatables-demo.js"></script> -->
 
 </body>
 

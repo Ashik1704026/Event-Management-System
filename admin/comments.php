@@ -1,16 +1,5 @@
 <?php
     session_start();
-    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
-    $sql=mysqli_query($con,"SELECT * FROM `registration`");
-    $numrows=mysqli_num_rows($sql);
-    // echo $numrows;
-    while($row=mysqli_fetch_assoc($sql)){
-        $fname = $row['fname'];
-        $lname = $row['lname'];
-        $email = $row['email'];
-        $password = $row['pass'];
-        $img = $row['img'];
-    }
 ?>
 
 
@@ -25,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Customers</title>
+    <title>Comments</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -66,7 +55,7 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link active" href="userinfo.php" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Customers</span>
@@ -90,7 +79,7 @@
                     <span>Orders</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="comments.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Comments</span>
@@ -189,25 +178,24 @@
                                          <!--User Info Page Heading -->
 
 
-                <h1 class="h3 mb-2 text-gray-800 mx-3 text-center my-5">User of EMS</h1>
+                <h1 class="h3 mb-2 text-gray-800 mx-3 text-center my-5">All the Comments.....</h1>
                 <!-- <p class="mb-4 mx-3">DataTables is a third party plugin that is used to generate the demo table below.For more information about DataTables, please visit the <a target="_blank"href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
-                    <!-- DataTales Example -->
-                <div class="card shadow mb-4 mx-3">
+                    <!-- DataTales Example    Not Read Comments -->
+                <div class="card shadow mb-5 mx-3">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables of Customer</h6>
+                        <h4 class="m-0 font-weight-bold text-primary">Recent Comment List</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr class = "text-center">
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>Comment ID</th>
+                                        <th>Name</th>
                                         <th>Email</th>
-                                        <th>Password</th>
-                                        <th>Image</th>
+                                        <th>Comments</th>
+                                        <th>Read</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -223,34 +211,83 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
-                                    $sql=mysqli_query($con,"SELECT * FROM `registration`");
-                                    $numrows=mysqli_num_rows($sql);
+                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlString = "SELECT * FROM `comments` WHERE `read` = 'no' ";
+                                    $result = $sqlConn->query($sqlString);
+                                    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
                                     // echo $numrows;
-                                    while($row=mysqli_fetch_assoc($sql)){
-                                        $fname = $row['fname'];
-                                        $lname = $row['lname'];
-                                        $email = $row['email'];
-                                        $password = $row['pass'];
-                                        $img = $row['img'];
-                                        $username = $row['username'];
+                                    foreach($resultArray as $rws){
                                 ?>
                                     <tr class = "text-center">
-                                        <td class="align-middle text-dark"> <?php echo $fname; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $lname; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $username; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $email; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $password; ?> </td>
-                                        <td> <?php
-                                            if(!empty($img)){
-                                                echo '<img src="../upload/'.$img.'" width="100" height="100""/>'; 
-                                            }
-                                            else{
-                                                echo "No Profile Pic";
-                                            }
-                                            ?>
+                                        <td class="align-middle text-dark"> <?php echo $rws['id']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['email']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['comment']; ?> </td>
+                                        <td class="align-middle text-dark">  
+                                            <a href="readComment.php?commentId=<?php echo $rws['id']; ?>"> <span class = "text-success"><i class = "fas fa-check-circle fa-2x"></i> </span></a>
                                         </td>
-                                        <td class="align-middle"> <a href="deleteUser.php?username=<?php echo $username; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span> </a> </td>
+                                        <td class="align-middle">
+                                            <a href="deleteComment.php?commentId=<?php echo $rws['id']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                                        <!-- DataTales Example    Read Comments -->
+
+
+                <div class="card shadow my-5 mx-3">
+                    <div class="card-header py-3">
+                        <h4 class="m-0 font-weight-bold text-success">Previous Comment List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr class = "text-center">
+                                        <th>Comment ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Comments</th>
+                                        <th>Read</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot> -->
+                                <tbody>
+                                <?php
+                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlString = "SELECT * FROM `comments` WHERE `read` = 'yes' ";
+                                    $result = $sqlConn->query($sqlString);
+                                    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+                                    // echo $numrows;
+                                    foreach($resultArray as $rws){
+                                ?>
+                                    <tr class = "text-center">
+                                        <td class="align-middle text-dark"> <?php echo $rws['id']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['email']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['comment']; ?> </td>
+                                        <td class="align-middle text-dark">  
+                                            <span class = "text-success"><i class = "fas fa-check-double fa-2x"></i> </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="deleteComment.php?commentId=<?php echo $rws['id']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
+                                        </td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>

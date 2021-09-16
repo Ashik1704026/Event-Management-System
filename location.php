@@ -53,29 +53,29 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Event</a></li>
+                            <!-- <li class="nav-item"><a href="" class="nav-link">Event</a></li> -->
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Wedding</a>
-                                    <a href="" class="dropdown-item">Birthday</a>
-                                    <a href="" class="dropdown-item">Anniversary</a>
-                                    <a href="" class="dropdown-item">Conference</a>
-                                    <a href="" class="dropdown-item">Party</a>
-                                    <a href="" class="dropdown-item">Reception</a>
+                                    <a href="Wedding.php" class="dropdown-item">Wedding</a>
+                                    <a href="Birthday.php" class="dropdown-item">Birthday</a>
+                                    <a href="Anniversary.php" class="dropdown-item">Anniversary</a>
+                                    <a href="Conference.php" class="dropdown-item">Conference</a>
+                                    <a href="Party.php" class="dropdown-item">Party</a>
+                                    <a href="Reception.php" class="dropdown-item">Reception</a>
                                 </div>
                             </li>     
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
                             <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
+                            <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
 
                                             <!-- navbar login signup show or hide -->
 
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
-                            <li class="nav-item log1"><a href="" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
+                            <li class="nav-item log1"><a href="users.php" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
-                            <li class="nav-item show1"><a href="" class="nav-link">Login</a></li>
+                            <li class="nav-item show1"><a href="home.php" class="nav-link">Login</a></li>
                             <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
                             <?php } ?>                    
                         </ul>
@@ -130,11 +130,12 @@
 
     <div class="container my-5">
         <h1>Details About Our Venues</h1>
+        <hr class = "mb-5 h-75">
         <div class="table-responsive-sm">
             <table class="table table-bordered table-hover">
                 <caption class="text-right my-2 text-danger">*Cost Per 50 Person</caption>
                 <thead>
-                    <tr class="">
+                    <tr class="text-center">
                         <th class="">Name</th>
                         <th class="">Address</th>
                         <th class="">Capacity</th>
@@ -165,6 +166,8 @@
                     $invert = $start > $end;
                     $dates = array();
                     $dates[] = $start->format($format);
+                    $location = $row['address'];
+                    $venue = $row['name'];
                     while ($start != $end) {
                         $start->modify(($invert ? '-' : '+') . '1 day');
                         $dates[] = $start->format($format);
@@ -173,7 +176,7 @@
                     ?>
 
                     <tbody>
-                        <tr class="">
+                        <tr class="text-center">
                             <th data-toggle="modal" data-target="#contactModal-<?php echo $row['locationID']; ?>"><?php echo $row['name'];?></th>
                             <td class=""><?php echo $row['address'];?></td>
                             <td class=""><?php echo $row['capacity'];?></td>
@@ -244,21 +247,25 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                        <?php
-                                        $sqlPic=mysqli_query($con,"SELECT image FROM images WHERE locationID='".$locID."'");
-                                        while($rowPic=mysqli_fetch_assoc($sqlPic)){
-                                        ?>
-                                        <div class="col-lg-6">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($rowPic['image']).'" class="img-fluid"/>'; ?>
+                                            <?php
+                                            $sqlPic=mysqli_query($con," SELECT * FROM `images` WHERE location = '$location' and venue = '$venue' ");
+                                            while($rowPic=mysqli_fetch_assoc($sqlPic)){
+                                            ?>
+                                            <div class="col-lg-6 mb-3">
+                                                <div class="card ">
+                                                    <div class="card-img">
+                                                    <!-- echo '<img src="../upload/'.$img.'" width="100" height="100""/>'; -->
+                                                    <?php echo '<img src="upload/'.$rowPic['image'].'"width="366" height="200"/>'; ?>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"> <?php echo $rowPic['event'] ?> at <?php echo $rowPic['venue'] ?>, <?php echo $rowPic['location'] ?> </h5>
+                                                        <p class="card-text"> <?php echo $rowPic['description'] ?> </p>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <?php } ?>
                                         </div>
-                                        <?php } ?>
-                                    <div class="card-img">
-                                        </div>
-                                    </div>
+                                    <!-- </div> -->
                                     </div>
                                     <div class="modal-footer">
                                         <a href="booking.php" class="mr-auto"><button type = "submit" class="btn btn-success">Create 

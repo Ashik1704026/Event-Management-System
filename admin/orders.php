@@ -62,13 +62,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" -expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link" href="location.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-map-marker-alt"></i>
                     <span>Location</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" -expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link" href="events.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-calendar-check"></i>
                     <span>Events</span>
                 </a>
@@ -80,7 +80,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" -expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link" href="comments.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Comments</span>
                 </a>
@@ -188,7 +188,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr class = "text-center">
                                         <th>Event ID</th>
@@ -234,8 +234,7 @@
                                         <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
                                         <td class="align-middle text-dark"> <?php echo $rws['username']; ?> </td>
                                         <td class="align-middle">
-                                            <a href="deleteUsephp?username=<?php echo $username; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
-                                            <a href="deleteUserphp?username=<?php echo $username; ?>"> <span class = "text-warning"><i class = "fas fa-edit fa-2x"></i> </span></a> 
+                                            <a href="deleteOrders.php?eventId=<?php echo $rws['eventID']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
                                         </td>
                                     </tr>
                                     <?php } ?>

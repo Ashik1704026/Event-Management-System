@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Location</title>
+    <title>Events</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +24,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -61,13 +62,13 @@
                     <span>Customers</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="location.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-map-marker-alt"></i>
                     <span>Location</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="events.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-calendar-check"></i>
                     <span>Events</span>
@@ -178,44 +179,25 @@
                                          <!--User Info Page Heading -->
 
 
-                <h1 class="h3 mb-2 text-gray-800 mx-3 text-center my-5">All the Location Name.....</h1>
+                <h1 class="h3 mb-2 text-gray-800 mx-3 text-center my-5">All the Events Name.....</h1>
+
+
+                                    <!-- Add events -->
 
 
                 <div class="row justify-content-center">
                     <div class="col-lg-4">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-5 font-weight-bold" data-toggle="collapse" data-target="#collapseAddLocation" aria-expanded="false">Add New Location and Venue</button>
-                        <div class="collapse mb-5" id="collapseAddLocation">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-5 font-weight-bold" data-toggle="collapse" data-target="#collapseAddEvent" aria-expanded="false">Add New Event and Cover Photo</button>
+                        <div class="collapse mb-5" id="collapseAddEvent">
                             <div class="card card-body">
-                            <form>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label class = "text-dark">Hotel Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <label class = "text-dark">Location Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+                            <form action="addEvents.php" method = "post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class = "text-dark">Event Name</label>
+                                    <input type="text" class="form-control" name = "eventName">
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-8">
-                                        <label class = "text-dark">Email address</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class = "text-dark">Capacity</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-8">
-                                        <label class = "text-dark">Phone Number</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class = "text-dark">Cost</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+                                <div class="form-group">
+                                    <label class = "text-dark">Cover Photo</label>
+                                    <input type="file" name = "CoverPic" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-outline-success btn-block text-dark">Submit</button>
                             </form>
@@ -226,21 +208,18 @@
 
 
                     <!-- DataTales Example -->
-                <div class="card shadow mb-4 mx-3">
+                <div class="card shadow mb-4 mx-5">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Location List</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Events List</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr class = "text-center">
-                                        <th>Hotel Name</th>
-                                        <th>Hotel Location</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Capacity</th>
-                                        <th>Cost</th>
+                                        <th>Event Name</th>
+                                        <th>Cover Photo</th>
+                                        <th>Change Cover Photo</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -257,7 +236,7 @@
                                 <tbody>
                                 <?php
                                     $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
-                                    $sqlString = "SELECT * FROM `location` ORDER BY `location`.`address` ASC";
+                                    $sqlString = "SELECT * FROM `eventList`";
                                     $result = $sqlConn->query($sqlString);
                                     $resultArray = $result->fetch_all(MYSQLI_ASSOC);
                                     // echo $numrows;
@@ -265,14 +244,16 @@
                                 ?>
                                     <tr class = "text-center">
                                         <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['address']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['email']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['phone']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['capacity']; ?> </td>
-                                        <td class="align-middle text-dark"> <?php echo $rws['cost']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo '<img src="../upload/'.$rws['image'].'" width="600" height="300""/>'; ?> </td>
                                         <td class="align-middle">
-                                            <a href="deleteUsephp?username=<?php echo $username; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
-                                            <a href="deleteUserphp?username=<?php echo $username; ?>"> <span class = "text-warning"><i class = "fas fa-edit fa-2x"></i> </span></a> 
+                                            <form action="updateEvents.php" method = "post" enctype="multipart/form-data">
+                                                <input type="hidden" name = "eventName" value = "<?php echo $rws['name']; ?>">
+                                                <input type="file" name = "CoverPic">
+                                                <button type="submit" class="btn btn-outline-warning text-dark">Change</button>
+                                            </form>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="deleteEvents.php?eventName=<?php echo $rws['name']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -311,11 +292,12 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <!-- <script src="js/demo/datatables-demo.js"></script> -->
+
 
 </body>
 
