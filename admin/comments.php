@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('../db.php');
 ?>
 
 
@@ -150,7 +151,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['username']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['adminName']; ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -211,7 +212,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                     $sqlString = "SELECT * FROM `comments` WHERE `read` = 'no' ";
                                     $result = $sqlConn->query($sqlString);
                                     $resultArray = $result->fetch_all(MYSQLI_ASSOC);
@@ -270,7 +271,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                     $sqlString = "SELECT * FROM `comments` WHERE `read` = 'yes' ";
                                     $result = $sqlConn->query($sqlString);
                                     $resultArray = $result->fetch_all(MYSQLI_ASSOC);

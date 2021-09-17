@@ -1,7 +1,8 @@
 <?php
     session_start();
+    include('../db.php');
     if(isset($_POST["submit"])){
-        $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+        // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
 
         $eventName = $_POST['eventName'];
         $description = $_POST['description'];

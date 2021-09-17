@@ -269,7 +269,7 @@
             $username = $_SESSION['username'];
             // echo $username;
         }
-        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
         $sqlString = "SELECT events.title,events.startDate,events.person,events.cost,location.name,location.address FROM events
         INNER JOIN location on events.locationID = location.locationID WHERE events.username = '$username' ";
         $result = $sqlConn->query($sqlString);
@@ -354,7 +354,7 @@
             $username = $_SESSION['username'];
             // echo $username;
         }
-        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
         $sqlString = "SELECT events.title,events.startDate,events.person,events.cost,location.name,location.address FROM events
         INNER JOIN location on events.locationID = location.locationID WHERE events.username = '$username' ";
         $result = $sqlConn->query($sqlString);

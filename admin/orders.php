@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('../db.php');
 ?>
 
 
@@ -150,7 +151,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['username']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['adminName']; ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -214,7 +215,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                     $sqlString = "SELECT events.eventID, events.title,events.startDate, events.lastDate,events.person,events.cost, events.username,location.name,location.address FROM events
                                     INNER JOIN location on events.locationID = location.locationID ORDER BY `events`.`startDate` ASC ";
                                     $result = $sqlConn->query($sqlString);
@@ -287,7 +288,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                     $sqlString = "SELECT events.eventID, events.title,events.startDate, events.lastDate,events.person,events.cost, events.username,location.name,location.address FROM events
                                     INNER JOIN location on events.locationID = location.locationID ORDER BY `events`.`startDate` ASC ";
                                     $result = $sqlConn->query($sqlString);

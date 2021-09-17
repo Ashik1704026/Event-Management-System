@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('db.php');
+    include('../db.php');
     // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     $sql=mysqli_query($con,"SELECT * FROM `registration`");
     $numusers=mysqli_num_rows($sql);

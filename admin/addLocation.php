@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('../db.php');
     if(isset($_POST["submit"])){
         if(!empty($_POST['hotelName'])){
             $hotelName = $_POST['hotelName'];
@@ -8,7 +9,7 @@
             $capacity = $_POST['capacity'];
             $phone = $_POST['phoneNumber'];
             $cost = $_POST['cost'];
-            $con = mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+            // $con = mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
             $sql = "INSERT INTO `location` (`locationID`, `name`, `address`, `manager`, `email`, `phone`, `capacity`, `cost`) VALUES (NULL, '$hotelName', '$locationName', '', '$email', '$phone', '$capacity', '$cost')";
             $result = mysqli_query($con, $sql);
             if($result){

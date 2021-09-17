@@ -1,6 +1,8 @@
 <?php
+    session_start();
+    include('../db.php');
 	$eventName = $_POST['eventName'];
-	$con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+	// $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     if(!empty($_FILES['CoverPic']['tmp_name'])){
         $image = $_FILES['CoverPic']['name'];
         $imageFileType = strtolower(pathinfo($image,PATHINFO_EXTENSION));

@@ -1,6 +1,7 @@
 <?php
     session_start();
-    $con = mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+    include('../db.php');
+    // $con = mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     $locationId = $_POST['locationId'];
     if(isset($_POST["submit"])){
         if(!empty($_POST['hotelName'])){

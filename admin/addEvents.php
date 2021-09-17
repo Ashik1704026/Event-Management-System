@@ -1,6 +1,8 @@
 <?php
+    session_start();
+    include('../db.php');
 	$eventName = $_POST['eventName'];
-	$con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+	// $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     if(!empty($_FILES['CoverPic']['tmp_name'])){
         $image = $_FILES['CoverPic']['name'];
         $imageFileType = strtolower(pathinfo($image,PATHINFO_EXTENSION));
@@ -11,8 +13,8 @@
             $result = mysqli_query($con,"INSERT INTO `eventList` (`name`, `image`) VALUES ('$eventName', '$image')");
             if($result){
                 // $_SESSION['userupdatePicok'] = 1;
-                //header("Location: events.php");
-                echo "Done";
+                header("Location: events.php");
+                // echo "Done";
             }
             else{
                 //echo "Not Done";

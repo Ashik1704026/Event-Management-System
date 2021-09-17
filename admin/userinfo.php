@@ -1,6 +1,7 @@
 <?php
     session_start();
-    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+    include('../db.php');
+    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     $sql=mysqli_query($con,"SELECT * FROM `registration`");
     $numrows=mysqli_num_rows($sql);
     // echo $numrows;
@@ -161,7 +162,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['username']; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  $_SESSION['adminName']; ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -223,7 +224,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                                    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                                     $sql=mysqli_query($con,"SELECT * FROM `registration`");
                                     $numrows=mysqli_num_rows($sql);
                                     // echo $numrows;
