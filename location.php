@@ -151,7 +151,7 @@
 
                 <?php
                 $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
-                $query=mysqli_query($con,"SELECT * FROM location");
+                $query=mysqli_query($con,"SELECT * FROM location ORDER BY `address` ASC");
                 while($row=mysqli_fetch_assoc($query)){
                     $locID=$row['locationID'];
                     $curdate=date("d-m-Y");

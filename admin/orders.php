@@ -179,12 +179,11 @@
 
 
                 <h1 class="h3 mb-2 text-gray-800 mx-3 text-center my-5">All the Orders.....</h1>
-                <!-- <p class="mb-4 mx-3">DataTables is a third party plugin that is used to generate the demo table below.For more information about DataTables, please visit the <a target="_blank"href="https://datatables.net">official DataTables documentation</a>.</p> -->
 
-                    <!-- DataTales Example -->
+                    <!-- DataTales Example    Upcoming order list...-->
                 <div class="card shadow mb-4 mx-3">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Order List</h6>
+                        <h3 class="m-0 font-weight-bold text-primary">UpComing Order List</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -221,7 +220,9 @@
                                     $result = $sqlConn->query($sqlString);
                                     $resultArray = $result->fetch_all(MYSQLI_ASSOC);
                                     // echo $numrows;
+                                    $dt = date("d-m-Y");
                                     foreach($resultArray as $rws){
+                                        if(strtotime($rws['startDate']) >= strtotime($dt)){
                                 ?>
                                     <tr class = "text-center">
                                         <td class="align-middle text-dark"> <?php echo $rws['eventID']; ?> </td>
@@ -237,12 +238,92 @@
                                             <a href="deleteOrders.php?eventId=<?php echo $rws['eventID']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
                                         </td>
                                     </tr>
-                                    <?php } ?>
+                                    <?php }
+                                } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
+
+
+
+                                    <!-- Previous Oder List -->
+
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow my-5 mx-3">
+                    <div class="card-header py-3">
+                        <h3 class="m-0 font-weight-bold text-success">Previous Order List</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr class = "text-center">
+                                        <th>Event ID</th>
+                                        <th>Event Name</th>
+                                        <th>Start Date</th>
+                                        <th>Last Date</th>
+                                        <th>Person</th>
+                                        <th>Cost</th>
+                                        <th>Location</th>
+                                        <th>Venue</th>
+                                        <th>User name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>Office</th>
+                                        <th>Age</th>
+                                        <th>Start date</th>
+                                        <th>Salary</th>
+                                    </tr>
+                                </tfoot> -->
+                                <tbody>
+                                <?php
+                                    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                    $sqlString = "SELECT events.eventID, events.title,events.startDate, events.lastDate,events.person,events.cost, events.username,location.name,location.address FROM events
+                                    INNER JOIN location on events.locationID = location.locationID ORDER BY `events`.`startDate` ASC ";
+                                    $result = $sqlConn->query($sqlString);
+                                    $resultArray = $result->fetch_all(MYSQLI_ASSOC);
+                                    // echo $numrows;
+                                    $dt = date("d-m-Y");
+                                    foreach($resultArray as $rws){
+                                        if(strtotime($rws['startDate']) < strtotime($dt)){
+                                ?>
+                                    <tr class = "text-center">
+                                        <td class="align-middle text-dark"> <?php echo $rws['eventID']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['title']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['startDate']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['lastDate']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['person']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['cost']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['address']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['name']; ?> </td>
+                                        <td class="align-middle text-dark"> <?php echo $rws['username']; ?> </td>
+                                        <td class="align-middle">
+                                            <a href="deleteOrders.php?eventId=<?php echo $rws['eventID']; ?>"> <span class = "text-danger"><i class = "fas fa-trash-alt fa-2x"></i> </span></a> 
+                                        </td>
+                                    </tr>
+                                    <?php }
+                                } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
 
             </div>
                 <!-- /.container-fluid -->
