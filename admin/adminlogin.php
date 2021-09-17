@@ -13,7 +13,7 @@
                     $dbpassword=$row['password'];  
                 }
                 if($pass == $dbpassword){
-                    $_SESSION['username'] = $user;
+                    $_SESSION['adminName'] = $user;
                     $_SESSION['loginok'] = 1;
                     header("Location: index.php");
                     die;

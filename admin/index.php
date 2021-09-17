@@ -1,6 +1,7 @@
 <?php
     session_start();
-    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+    include('db.php');
+    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     $sql=mysqli_query($con,"SELECT * FROM `registration`");
     $numusers=mysqli_num_rows($sql);
     $sql=mysqli_query($con,"SELECT * FROM `events`");
@@ -12,7 +13,7 @@
     $sql=mysqli_query($con,"SELECT * FROM `location`");
     $totalveneu=mysqli_num_rows($sql);
 
-    $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+    $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
     $sqlString = "SELECT * FROM `location`";
     $result = $sqlConn->query($sqlString);
     $resultArray = $result->fetch_all(MYSQLI_ASSOC);
@@ -182,7 +183,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php if(isset($_SESSION['username'])) echo  $_SESSION['username']; else echo "Not Logged in" ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php if(isset($_SESSION['username'])) echo  $_SESSION['adminName']; else echo "Not Logged in" ?></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -382,7 +383,7 @@
                                 <select class="form-control" name = "eventName" required>
                                     <option selected>--Select--</option>
                                     <?php
-                                        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                         $sqlString = "SELECT * FROM `eventList`";
                                         $result = $sqlConn->query($sqlString);
                                         $resultArray = $result->fetch_all(MYSQLI_ASSOC);
@@ -418,7 +419,7 @@
                                 <select class="form-control" name = "userName" required>
                                     <option selected>--Select--</option>
                                     <?php
-                                        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+                                        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
                                         $sqlString = "SELECT * FROM `registration`";
                                         $result = $sqlConn->query($sqlString);
                                         $resultArray = $result->fetch_all(MYSQLI_ASSOC);
@@ -484,7 +485,7 @@
                                 </tfoot> -->
                                 <tbody>
                                 <?php
-                                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                                    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                                     $sql=mysqli_query($con,"SELECT * FROM `images`");
                                     $numrows=mysqli_num_rows($sql);
                                     // echo $numrows;

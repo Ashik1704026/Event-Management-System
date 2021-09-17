@@ -79,6 +79,7 @@
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
                             <li class="nav-item show1"><a href="home.php" class="nav-link">Login</a></li>
+                            <li class="nav-item show1"><a href="admin/login.html" class="nav-link">AdminLogin</a></li>
                             <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
                             <?php } ?> 
                         </ul>
