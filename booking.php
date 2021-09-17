@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('db.php');
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +135,7 @@
                       	<div class="col-sm-10 col-md-10 col-lg-10">
 							<div class="row ml-2 " required>
                                 <?php
-                                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                                    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                                     $query=mysqli_query($con,"SELECT * FROM eventList");
                                     while($row=mysqli_fetch_assoc($query)){
 

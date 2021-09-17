@@ -1,6 +1,7 @@
 
 <?php
     session_start();
+    include('db.php');
     if(isset($_POST["submit"])){
         if(!empty($_SESSION['username'])){
             $Event=$_POST['gridRadios'];
@@ -19,7 +20,7 @@
             }
             else{
                 $user = $_SESSION['username'];
-                $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                 $sql=mysqli_query($con,"SELECT `locationID` FROM `location` WHERE `name`='".$Venue."' AND `address` = '".$Location."' ");
                 $LocationId = mysqli_fetch_assoc($sql);
                 $LocationId =  $LocationId['locationID'];

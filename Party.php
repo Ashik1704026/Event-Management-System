@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('db.php');
 ?>
 
 
@@ -134,7 +135,7 @@
 
         <div class="row mb-5 mt-4">
             <?php
-                $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                 $sqlPic=mysqli_query($con," SELECT * FROM `images` WHERE event = 'Party' ");
                 while($rowPic=mysqli_fetch_assoc($sqlPic)){
             ?>

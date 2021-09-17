@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('db.php');
 ?>
 
 
@@ -136,7 +137,7 @@
             <hr class="my-4">
             <div class="row">
                 <?php
-                    $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+                    // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
                     $query=mysqli_query($con,"SELECT * FROM eventList");
                     while($row=mysqli_fetch_assoc($query)){
                         $name = $row['name']; ?>

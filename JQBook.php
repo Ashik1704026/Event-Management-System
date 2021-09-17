@@ -1,9 +1,10 @@
 <?php
     session_start();
+    include('db.php');
     if(isset($_POST['locname']) && isset($_POST['vname'])){
         $lname = $_POST['locname'];
         $vname = $_POST['vname'];
-        $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+        // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
         $sql=mysqli_query($con,"SELECT `locationID` FROM `location` WHERE `name`='".$vname."' AND `address` = '".$lname."' ");
         $numrows=mysqli_num_rows($sql);
         $LocationId = mysqli_fetch_assoc($sql);

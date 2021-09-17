@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include('db.php');
 ?>
 
 
@@ -108,7 +109,7 @@
     <?php
         $username = $_SESSION['username'];
         // echo $username;
-        $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
+        // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
         $sql=mysqli_query($con,"SELECT * FROM `registration` WHERE `username`='$username'");
         $numrows=mysqli_num_rows($sql);
         // echo $numrows;

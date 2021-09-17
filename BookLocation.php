@@ -1,7 +1,9 @@
 <?php 
     session_start();
+    include('db.php');
     function loadLocation(){
-        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+        // $sqlConn = $con;
+        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
         $sqlString = "SELECT * FROM `location`";
         $result = $sqlConn->query($sqlString);
         $resultArray = $result->fetch_all(MYSQLI_ASSOC);
@@ -23,7 +25,7 @@
 
     if(isset($_POST['locname'])){
         $loc = $_POST['locname'];
-        $sqlConn =  new mysqli('localhost', 'root','', 'EMS');
+        $sqlConn =  new mysqli('sql5.freesqldatabase.com','sql5437992','uRqlHhGhpf','sql5437992');
         $sqlString = "SELECT * FROM `location` WHERE `address` = '$loc'";
         $result = $sqlConn->query($sqlString);
         $rArray = $result->fetch_all(MYSQLI_ASSOC);
