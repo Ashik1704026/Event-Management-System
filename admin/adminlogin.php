@@ -15,7 +15,7 @@
                 }
                 if($pass == $dbpassword){
                     $_SESSION['adminName'] = $user;
-                    $_SESSION['loginok'] = 1;
+                    // $_SESSION['loginok'] = 1;
                     header("Location: index.php");
                     die;
                 }

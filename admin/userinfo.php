@@ -1,6 +1,10 @@
 <?php
     session_start();
     include('../db.php');
+    if(!isset($_SESSION['adminName'])){
+        header('Location: ../home.php');
+    }
+
     // $con=mysqli_connect('localhost','root','','EMS') or die(mysqli_error());
     $sql=mysqli_query($con,"SELECT * FROM `registration`");
     $numrows=mysqli_num_rows($sql);

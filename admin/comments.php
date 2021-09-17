@@ -1,6 +1,9 @@
 <?php
     session_start();
     include('../db.php');
+    if(!isset($_SESSION['adminName'])){
+        header('Location: ../home.php');
+    }
 ?>
 
 
