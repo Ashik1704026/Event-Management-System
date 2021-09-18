@@ -20,7 +20,7 @@
                 $result = mysqli_query($con,"INSERT INTO `images` (`id`,`event`, `description`, `location`, `venue`, `username`, `image`) VALUES (NULL, '$eventName', '$description', '$location', '$venue', '$userName', '$image')");
                 if($result){
                     // $_SESSION['userupdatePicok'] = 1;
-                    header("Location: index.php");
+                    header("Location: activity.php");
                 }
                 else{
                     // $_SESSION['userupdatePicNotok'] = 0;
