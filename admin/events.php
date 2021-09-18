@@ -85,6 +85,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="activity.php" -expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-images"></i>
+                    <span>Activity</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="comments.php" -expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-comments"></i>
                     <span>Comments</span>

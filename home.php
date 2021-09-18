@@ -69,18 +69,19 @@
                                 </div>
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+                            <!-- <li class="nav-item"><a href="" class="nav-link">About Us</a></li> -->
                             <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
 
                                             <!-- navbar login signup show or hide -->
 
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
+                            <li class="nav-item"><a href="booking.php" class="nav-link">Booking</a></li>
                             <li class="nav-item log1"><a href="users.php" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                             <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
                             <li class="nav-item show1"><a href="home.php" class="nav-link">Login</a></li>
-                            <li class="nav-item show1"><a href="admin/login.html" class="nav-link">AdminLogin</a></li>
                             <li class="nav-item show1"><a href="signup.php" class="nav-link">Signup</a></li>
+                            <li class="nav-item show1"><a href="admin/login.html" class="nav-link">Admin</a></li>
                             <?php } ?> 
                         </ul>
                     </div>

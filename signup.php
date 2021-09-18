@@ -75,7 +75,7 @@
                         </div>
                     </li>
                     <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+                    <!-- <li class="nav-item"><a href="" class="nav-link">About Us</a></li> -->
                     <li class="nav-item"><a href="" class="nav-link">Contact Us</a></li>
                     <li class="nav-item"><a href="" class="nav-link">Login</a></li>
                     <li class="nav-item"><a href="signup.php" class="nav-link">Signup</a></li>

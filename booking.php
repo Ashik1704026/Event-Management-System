@@ -66,9 +66,10 @@
                                 </div>
                             </li>
                             <li class="nav-item"><a href="location.php" class="nav-link">Location</a></li>
-                            <li class="nav-item"><a href="" class="nav-link">About Us</a></li>
+                            <!-- <li class="nav-item"><a href="" class="nav-link">About Us</a></li> -->
                             <li class="nav-item"><a href="contactus.php" class="nav-link">Contact Us</a></li>
                             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) ){ ?>
+                                <li class="nav-item"><a href="booking.php" class="nav-link">Booking</a></li>
                                 <li class="nav-item log1"><a href="users.php" class="nav-link"><?php echo $_SESSION['username'] ?></a></li>
                                 <li class="nav-item log1"><a href="logout.php" class="nav-link">Logout</a></li>
                             <?php }else{ ?>
