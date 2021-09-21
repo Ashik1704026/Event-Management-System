@@ -10,12 +10,12 @@
             $sql = "UPDATE `location` SET `name` = '$hotelName' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
                 header('Location: location.php');
             }
             else{
-                // $_SESSION['commentsNot'] = 1;
-                // header('Location: contactus.php');
+                $_SESSION['editLNot'] = 1;
+                header('Location: location.php');
             }
         }
         if(!empty($_POST['locationName'])){
@@ -23,7 +23,11 @@
             $sql = "UPDATE `location` SET `address` = '$locationName' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
+                header('Location: location.php');
+            }
+            else{
+                $_SESSION['editLNot'] = 1;
                 header('Location: location.php');
             }
         }
@@ -32,7 +36,11 @@
             $sql = "UPDATE `location` SET `email` = '$email' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
+                header('Location: location.php');
+            }
+            else{
+                $_SESSION['editLNot'] = 1;
                 header('Location: location.php');
             }
         }
@@ -41,7 +49,11 @@
             $sql = "UPDATE `location` SET `capacity` = '$capacity' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
+                header('Location: location.php');
+            }
+            else{
+                $_SESSION['editLNot'] = 1;
                 header('Location: location.php');
             }
         }
@@ -50,7 +62,11 @@
             $sql = "UPDATE `location` SET `phone` = '$phone' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
+                header('Location: location.php');
+            }
+            else{
+                $_SESSION['editLNot'] = 1;
                 header('Location: location.php');
             }
         }
@@ -59,7 +75,11 @@
             $sql = "UPDATE `location` SET `cost` = '$cost' WHERE `location`.`locationID` = '$locationId' ";
             $result = mysqli_query($con, $sql);
             if($result){
-                // $_SESSION['comments'] = 1;
+                $_SESSION['editL'] = 1;
+                header('Location: location.php');
+            }
+            else{
+                $_SESSION['editLNot'] = 1;
                 header('Location: location.php');
             }
         }

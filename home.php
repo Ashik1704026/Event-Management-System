@@ -176,7 +176,7 @@
                         <strong class="ftxthght">C</strong>hittagong <strong class="ftxthght">U</strong>niversity of <strong class="ftxthght">E</strong>ngineering & <strong class="ftxthght">T</strong>echnology
                     </p>
                     <p>
-                        Ashik & Ibadot &copy;Urban Events Venue & Catering, 2020.
+                        Ashik & Ibadot &copy;Urban Events Venue & Catering, 2021.
                     </p>
                 </div>
                 <div class="col-md-4">

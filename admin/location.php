@@ -130,7 +130,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="login.html">Logout</a>
+                        <a class="btn btn-primary" href="logout.php">Logout</a>
                     </div>
                 </div>
             </div>
@@ -233,6 +233,41 @@
                         </div>
                     </div>
                 </div>
+
+                                <!-- Alerts.... -->
+                 
+                <?php if(isset($_SESSION['addLocation'])){ unset($_SESSION['addLocation']); ?>                
+                    <div class="alert alert-success alert-dismissible fade show mx-5" role="alert">
+                        <strong>Successful....!</strong> New Location Successfully Added....
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>  
+                <?php if(isset($_SESSION['addLocationNot'])){ unset($_SESSION['addLocationNot']); ?>                
+                    <div class="alert alert-danger alert-dismissible fade show mx-5" role="alert">
+                        <strong>Oppss...!</strong> New Location Is Not Added, Try Again......
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>  
+                <?php if(isset($_SESSION['dltLocation'])){ unset($_SESSION['dltLocation']); ?>                
+                    <div class="alert alert-danger alert-dismissible fade show mx-5" role="alert">
+                        <strong>Deleted...!</strong> Your Location Is Deleted Successfully....
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?>
+                <?php if(isset($_SESSION['editL'])){ unset($_SESSION['editL']); ?>                
+                    <div class="alert alert-success alert-dismissible fade show mx-5" role="alert">
+                        <strong>Updated....!</strong> Location Successfully Updated......
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php } ?> 
 
 
                     <!-- DataTales Example -->
@@ -340,7 +375,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
                 <!-- /.container-fluid -->
 
@@ -348,7 +382,7 @@
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
+                    <span>Ashik & Ibadot &copy;Urban Events Venue & Catering, 2021.</span>
                 </div>
             </div>
         </footer>
