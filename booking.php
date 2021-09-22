@@ -142,7 +142,7 @@
 
                                 ?>
 								<div class="col-lg-3 col-md-4 form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="Wedding">
+									<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="<?php echo $row['name'] ?>">
 									<label class="form-check-label col-form-label-lg" for="gridRadios1">
 									    <?php echo $row['name'] ?>
 									</label>
